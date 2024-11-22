@@ -1,0 +1,6 @@
+[mysqld]
+datadir = /var/lib/mysql          # Directory where the database files are stored
+socket  = /run/mysqld/mysqld.sock # Unix socket file used for local connections
+bind_address = 0.0.0.0            # IP address to bind to (0.0.0.0 means all interfaces)
+port = 3306                       # Port number for the MySQL server
+user = mysql                      # User under which the MySQL server runs
