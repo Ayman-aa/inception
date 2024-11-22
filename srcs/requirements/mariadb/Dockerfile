@@ -1,13 +1,17 @@
 FROM debian:bullseye
 
-# Install MariaDB
-RUN apt-get update && apt-get install -y mariadb-server
+RUN apt update && apt install --no-install-recommends mariadb-server -y
 
-# Copy the configuration file
+EXPOSE 3306
+
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-# Copy the script to create the database
-COPY tools/create_db.sh /
+# Fix permissions
+RUN chmod 644 /etc/mysql/mariadb.conf.d/50-server.cnf
 
-# Execute the script
-CMD ["/create_db.sh"]
+
+COPY ./tools/create_db.sh /bin/
+
+RUN chmod +x /bin/create_db.sh
+
+CMD ["create_db.sh"]

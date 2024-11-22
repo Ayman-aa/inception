@@ -1,15 +1,18 @@
 #!/bin/bash
 
-service mysql start 
+# Start MariaDB
+service mariadb start
 
-echo "CREATE DATABASE IF NOT EXISTS $DB_NAME ;" > db1.sql
-echo "CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_USER_PWD' ;" >> db1.sql
-echo "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%' ;" >> db1.sql
-echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PWD' ;" >> db1.sql
-echo "FLUSH PRIVILEGES;" >> db1.sql
+# Wait for MariaDB to start
+sleep 5
 
-mysql < db1.sql
+# Create database and user if they do not exist
+mysql -e "CREATE DATABASE IF NOT EXISTS \`$DB_NAME\`;"
+mysql -e "CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_USER_PWD';"
+mysql -e "GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO '$DB_USER'@'%';"
 
-service mysql stop
+# Stop MariaDB
+service mariadb stop
 
-mysqld
+# Start the MariaDB daemon
+exec mysqld

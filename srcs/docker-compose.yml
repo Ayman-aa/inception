@@ -1,27 +1,15 @@
-version: '3.5'
-
 services:
   mariadb:
-    image: mariadb
-    build: ./requirements/mariadb
+    build: ./requirements/mariadb/
+    image: mariadb:1337
     container_name: mariadb
-    restart: always
+    env_file:
+      - .env
+    volumes:
+      - /var/lib/mysql/
     networks:
       - inception
-    volumes:
-      - mariadb:/var/lib/mysql
-    environment:
-      - .env
-
-volumes:
-  mariadb:
-    name: mariadb
-    driver: local
-    driver_opts:
-      type: none
-      device: /workspaces/inception/srcs/requirements/mariadb
-      o: bind 
+    restart: always
 
 networks:
   inception:
-    name: inception
