@@ -1,15 +1,7 @@
 #!/bin/bash
 
-# Function to wait for MariaDB
-wait_for_mariadb() {
-    while ! mysqladmin ping -h"mariadb" --silent; do
-        echo "Waiting for MariaDB to be ready..."
-        sleep 3
-    done
-}
-
 # Wait for MariaDB to be ready
-wait_for_mariadb
+sleep 5
 
 # Set up WordPress if not already installed
 if [ ! -f "wp-config.php" ]; then
