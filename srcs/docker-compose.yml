@@ -45,10 +45,10 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/aymanisme/data/db/
+      device: /home/aaamam/data/db/
 
   wordpress:
     driver_opts:
       type: none
       o: bind
-      device: /home/aymanisme/data/wordpress/
+      device: /home/aaamam/data/wordpress/

@@ -38,6 +38,10 @@ if [ ! -f "wp-config.php" ]; then
     chown -R www-data:www-data /var/www/html
 fi
 
+# if already install 
+echo "WordPress is already installed"
+
 # Execute CMD (php-fpm)
+echo "Starting php-fpm..."
 mkdir -p /run/php/
 php-fpm7.4 -F
