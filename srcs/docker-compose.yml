@@ -1,32 +1,28 @@
 services:
-  nginx:
-    build: ./requirements/nginx/
-    image: nginx:1337
-    container_name: nginx
-    depends_on:
-      - wordpress
-    env_file:
-      - .env
-    ports:
-      - "443:443"
-    networks:
-      - inception
-    volumes:
-      - wordpress:/var/www/html/
-    restart: always
-
   wordpress:
     build: ./requirements/wordpress/
     image: wordpress:1337
     container_name: wordpress
-    depends_on:
-      - mariadb
     env_file:
       - .env
-    networks:
-      - inception
     volumes:
       - wordpress:/var/www/html/
+    networks:
+      - inception
+    restart: always
+
+  nginx:
+    build: ./requirements/nginx/
+    image: nginx:1337
+    container_name: nginx
+    env_file:
+      - .env
+    volumes:
+      - wordpress:/var/www/html/
+    ports:
+      - 443:443
+    networks:
+      - inception
     restart: always
 
   mariadb:
@@ -36,7 +32,7 @@ services:
     env_file:
       - .env
     volumes:
-      - /var/lib/mysql/
+      - db:/var/lib/mysql/
     networks:
       - inception
     restart: always
@@ -45,4 +41,14 @@ networks:
   inception:
 
 volumes:
+  db:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/aymanisme/data/db/
+
   wordpress:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/aymanisme/data/wordpress/

@@ -1,4 +1,6 @@
-all : 
+all :
+	mkdir -p /home/aymanisme/data/db
+	mkdir -p /home/aymanisme/data/wordpress
 	docker compose -f ./srcs/docker-compose.yml up --build
 
 fclean:
