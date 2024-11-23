@@ -9,11 +9,18 @@ server
     ssl_certificate_key ${SSL_CERTIFICATE_KEY};
     ssl_protocols TLSv1.3;
 
-    index index.nginx-debian.html;
+    index index.php index.nginx-debian.html;
 
     # Location block
     location /
     {
         try_files $uri $uri/ =404;
+    }
+
+        location ~ \.php$
+    {
+        fastcgi_pass wordpress:9000;
+        include fastcgi.conf;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; #root+filename
     }
 }
