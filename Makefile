@@ -1,7 +1,7 @@
 all :
 	mkdir -p /home/aaamam/data/db
 	mkdir -p /home/aaamam/data/wordpress
-	docker compose -f ./srcs/docker-compose.yml up -d --build 
+	docker-compose -f ./srcs/docker-compose.yml up --build 
 
 fclean:
 	-docker stop $$(docker ps -aq)

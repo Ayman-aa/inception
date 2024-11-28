@@ -34,6 +34,7 @@ if [ ! -f "wp-config.php" ]; then
         --user_pass="$WORDPRESS_USER_PASSWORD" \
         --allow-root
 
+    wp theme activate twentytwentyfour --allow-root
     # Set correct permissions
     chown -R www-data:www-data /var/www/html
 fi
